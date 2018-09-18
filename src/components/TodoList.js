@@ -1,39 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from './Todo'
-import DB_CONFIG from '../config/firebase'
-import firebase from 'firebase'
-import { addTodo, toggleTodo } from '../actions'
-import { connect } from 'react-redux'
 
-firebase.initializeApp(DB_CONFIG);
-export const database = firebase.database().ref();
 
 
 class TodoList extends React.Component {
-
-
-    componentDidMount() {
-        const {dispatch} = this.props;
-
-
-
-        database.child('todos').once('value', (snapshot) => {
-            console.log(snapshot.val());
-            snapshot.val().forEach((todo) => {
-                console.log(todo);
-                if (todo.completed) {
-                    dispatch(addTodo(todo.text + ''));
-                    dispatch(toggleTodo(todo.id));
-                }else{
-                    dispatch(addTodo(todo.text + ''))
-                }
-            })
-
-        });
-    }
-
-
 
     render(){
 
@@ -61,4 +32,4 @@ TodoList.propTypes = {
     toggleTodo: PropTypes.func.isRequired
 };
 
-export default connect ()(TodoList)
+export default TodoList

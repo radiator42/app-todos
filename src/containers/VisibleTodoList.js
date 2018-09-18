@@ -2,7 +2,11 @@ import { connect } from 'react-redux'
 import { toggleTodo } from '../actions'
 import TodoList from '../components/TodoList'
 import { VisibilityFilters } from '../actions'
-import {database} from "../components/TodoList";
+import DB_CONFIG from '../config/firebase'
+import firebase from 'firebase'
+
+firebase.initializeApp(DB_CONFIG);
+export const database = firebase.database().ref();
 
 const getVisibleTodos = (todos, filter) => {
     switch (filter) {
@@ -22,24 +26,21 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleTodo: id => {
-        const request = database.child('todos').on('value');
-    return (diapatch) =>  {
-        console.log(dispatch);
+    toggleTodo: id => dispatch (
+        dispatch => {
+            database.child('todos').once('value',snap => {
+                    console.log(snap.val());
+                    const map = snap.val().map((togler, index) => {
+                        if (index === id) {
+                            return {...togler, completed: !togler.completed}
 
-        request.then((snap) => {
-            console.log(snap.val());
-                const map = snap.val().map((togler, index) => {
-                    if (index === id) {
-                        return {...togler, completed: !togler.completed}
-
-                    }
-                    return togler
-                });
-                database.child('todos/' + id).set(map[id]);
-                dispatch(toggleTodo(id))
-            })
-}}});
+                        }
+                        return togler
+                    });
+                    database.child('todos/' + id).set(map[id]);
+                    dispatch(toggleTodo(id))
+                })
+        })});
 
 export default connect(
     mapStateToProps,
