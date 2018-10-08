@@ -1,48 +1,31 @@
-import { connect } from 'react-redux'
-import { toggleTodo } from '../actions'
-import TodoList from '../components/TodoList'
-import { VisibilityFilters } from '../actions'
-import DB_CONFIG from '../config/firebase'
-import firebase from 'firebase'
-
-firebase.initializeApp(DB_CONFIG);
-export const database = firebase.database().ref();
+import { connect } from 'react-redux';
+import { toggleTodoServe, requestData, VisibilityFilters } from '../actions';
+import TodoList from '../components/TodoList';
 
 const getVisibleTodos = (todos, filter) => {
-    switch (filter) {
-        case VisibilityFilters.SHOW_ALL:
-            return todos;
-        case VisibilityFilters.SHOW_COMPLETED:
-            return todos.filter(t => t.completed);
-        case VisibilityFilters.SHOW_ACTIVE:
-            return todos.filter(t => !t.completed);
-        default:
-            throw new Error('Unknown filter: ' + filter)
-    }
+  switch (filter) {
+    case VisibilityFilters.SHOW_ALL:
+      return todos;
+    case VisibilityFilters.SHOW_COMPLETED:
+      return todos.filter(t => t.completed);
+    case VisibilityFilters.SHOW_ACTIVE:
+      return todos.filter(t => !t.completed);
+    default:
+      throw new Error(`Unknown filter: ${filter}`);
+  }
 };
 
 const mapStateToProps = state => ({
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+  todos: getVisibleTodos(state.todos, state.visibilityFilter),
+  popUp: state.popUp,
 });
 
 const mapDispatchToProps = dispatch => ({
-    toggleTodo: id => dispatch (
-        dispatch => {
-            database.child('todos').once('value',snap => {
-                    console.log(snap.val());
-                    const map = snap.val().map((togler, index) => {
-                        if (index === id) {
-                            return {...togler, completed: !togler.completed}
-
-                        }
-                        return togler
-                    });
-                    database.child('todos/' + id).set(map[id]);
-                    dispatch(toggleTodo(id))
-                })
-        })});
+  toggleTodos: (id, todos) => dispatch(toggleTodoServe(id, todos)),
+  request: () => dispatch(requestData()),
+});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(TodoList);
