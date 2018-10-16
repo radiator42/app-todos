@@ -1,11 +1,16 @@
 import React from 'react';
 import FilterLink from '../containers/FilterLink';
-import { VisibilityFilters } from '../actions';
+import { VisibilityFilters, FILTERS } from '../actions';
 
 function Footer() {
   return (
-    <div style={{marginTop: 20}}>
+    <div style={{ marginTop: 20 }}>
       <span>Show: </span>
+      {FILTERS.map((item) => ({
+        <FilterLink filter={item.value}>
+          {item.label}
+        </FilterLink>;
+      }))}
       <FilterLink filter={VisibilityFilters.SHOW_ALL}>
       All
       </FilterLink>

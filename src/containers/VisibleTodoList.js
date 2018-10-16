@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { toggleTodoServe, requestData, VisibilityFilters } from '../actions';
+import { toggleTodos, requestData, VisibilityFilters } from '../actions';
 import TodoList from '../components/TodoList';
 
 const getVisibleTodos = (todos, filter) => {
@@ -21,8 +21,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleTodos: (id, todos) => dispatch(toggleTodoServe(id, todos)),
-  request: () => dispatch(requestData()),
+  toggleTodos: (id, completed) => dispatch(toggleTodos(id, completed)),
+  requestData: () => dispatch(requestData()),
 });
 
 export default connect(

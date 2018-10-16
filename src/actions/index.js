@@ -1,85 +1,90 @@
 import database from '../config/firebase';
+import {
+  SHOW_ALL,
+  SHOW_COMPLETED,
+  SHOW_ACTIVE,
+  ADD_TODO,
+  SET_VISIBILITY_FILTER,
+  TOGGLE_TODO,
+  REQUEST,
+  POPUP,
+} from './CONSTANTS';
 
 export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE',
+  SHOW_ALL,
+  SHOW_COMPLETED,
+  SHOW_ACTIVE,
 };
+export const FILTERS = [
+  { lable: 'All', value: VisibilityFilters.SHOW_ALL },
+  { lable: 'Active', value: VisibilityFilters.SHOW_ACTIVE },
+  { lable: 'Completed', value: VisibilityFilters.SHOW_COMPLETED },
+];
 
 export const popUp = text => ({
-  type: 'POPUP',
   text,
+  type: POPUP,
 });
 
 export const addTodo = (text, id) => ({
-  type: 'ADD_TODO',
-  text,
   id,
+  text,
+  type: ADD_TODO,
 });
 
 export const setVisibilityFilter = filter => ({
-  type: 'SET_VISIBILITY_FILTER',
   filter,
+  type: SET_VISIBILITY_FILTER,
 });
 
 export const toggleTodo = id => ({
-  type: 'TOGGLE_TODO',
   id,
+  type: TOGGLE_TODO,
 });
 
 export const pushData = data => ({
-  type: 'REQUEST',
   data,
+  type: REQUEST,
 });
 
 export const requestData = () => (dispatch) => {
   database.child('todos').once('value', (snap) => {
     if (!snap.val()) {
-      dispatch(popUp('Данных нету'));
+      dispatch(popUp('Еще не создано ни одной записи'));
       return;
     }
-    dispatch(pushData(snap.val()));
+    dispatch(pushData(Object.values(snap.val())));
   });
 };
 
-export const addToServe = text => (dispatch) => {
-  database.child('todos').once('value', (snap) => {
-    if (!snap.val()) {
-      database.child('todos/0').set({
-        id: 0,
+export const addToDatabase = text => (dispatch) => {
+  try {
+    const { key } = database.child('todos').push();
+    database.child(`todos/${key}`)
+      .set({
+        id: key,
         text,
         completed: false,
+      })
+      .then(() => dispatch(addTodo(text, key)))
+      .catch((e) => {
+        console.log(`Mistake: ${e.code}`);
       });
-      dispatch(addTodo(text, 0));
-      return;
-    }
-    const id = snap.val().length;
-    database.child(`todos/${id}`).set({
-      id,
-      text,
-      completed: false,
-    })
-      .then(() => dispatch(addTodo(text, id)));
-  });
+  } catch (e) {
+    console.log(e.message);
+  }
 };
 
-export const toggleTodoServe = (id, todos) => (dispatch) => {
-  // dispatch delete completed
-  if (todos[id].id === id && todos[id].completed) {
-    const todoListFilter = todos.filter(elem => elem.id !== id);
-    const maps = todoListFilter.map((map, index) => ({ ...map, id: index }));
-    database.child('todos').set(maps)
-      .then(() => dispatch(pushData(maps)));
-    return;
-  }
-
-  // dispatch change completed
-  todos.forEach((todo, index) => {
-    if (todos[id].id === index && todo.completed === false) {
-      database.child(`todos/${id}`)
-        .set({ ...todo, completed: !todo.completed })
-        .then(() => dispatch(toggleTodo(id)));
+export const toggleTodos = (id, completed) => dispatch => () => {
+  database.child('todos').once('value', (snap) => {
+    if (snap.val()[id].completed === true) {
+      database.child(`todos/${id}`).remove();
+      database.child('todos').once('value', (val) => {
+        dispatch(pushData(Object.values(val.val())));
+      });
+      return;
     }
-    return todo;
+    database.child(`todos/${id}`).update({ completed: !completed })
+      .then(() => dispatch(toggleTodo(id)));
   });
 };

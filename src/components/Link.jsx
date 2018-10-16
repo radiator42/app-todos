@@ -6,7 +6,7 @@ function Link({ active, children, onClick }) {
   return (
     <Button
       variant="outlined"
-      color='primary'
+      color="primary"
       onClick={onClick}
       disabled={active}
       style={{ marginLeft: '4px' }}
