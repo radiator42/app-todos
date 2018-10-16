@@ -6,13 +6,13 @@ function Footer() {
   return (
     <div style={{ marginTop: 20 }}>
       <span>Show: </span>
-      {FILTERS.map((item) => ({
+      {/* {FILTERS.map(item => (
         <FilterLink filter={item.value}>
           {item.label}
-        </FilterLink>;
-      }))}
+        </FilterLink>
+      ))} */}
       <FilterLink filter={VisibilityFilters.SHOW_ALL}>
-      All
+        All
       </FilterLink>
       <FilterLink filter={VisibilityFilters.SHOW_ACTIVE}>
         Active

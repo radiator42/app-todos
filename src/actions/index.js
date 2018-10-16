@@ -16,9 +16,9 @@ export const VisibilityFilters = {
   SHOW_ACTIVE,
 };
 export const FILTERS = [
-  { lable: 'All', value: VisibilityFilters.SHOW_ALL },
-  { lable: 'Active', value: VisibilityFilters.SHOW_ACTIVE },
-  { lable: 'Completed', value: VisibilityFilters.SHOW_COMPLETED },
+  { label: 'All', value: VisibilityFilters.SHOW_ALL },
+  { label: 'Active', value: VisibilityFilters.SHOW_ACTIVE },
+  { label: 'Completed', value: VisibilityFilters.SHOW_COMPLETED },
 ];
 
 export const popUp = text => ({
