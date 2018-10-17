@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import todos from './todos';
-import popUp from './popUp';
+import preload from './preload';
 import visibilityFilter from './visibilityFilter';
 
 export default combineReducers({
   todos,
   visibilityFilter,
-  popUp,
+  preload,
 });

@@ -23,7 +23,6 @@ const styles = theme => ({
 class AddTodo extends React.Component {
   onClick = e => {
     const { add } = this.props;
-    console.log(add);
 
     if (!this.input.value) {
       return;

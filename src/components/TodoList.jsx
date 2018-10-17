@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Todo from './Todo';
+import { MESSAGE_LIST } from '../actions/CONSTANTS';
 
 const styles = {
   container: {
@@ -15,17 +16,18 @@ const styles = {
 
 class TodoList extends React.PureComponent {
   componentDidMount() {
-    const { todos, requestData } = this.props;
-    if (!todos.length || todos === null) {
-      requestData();
-    }
+    const { requestData } = this.props;
+    requestData();
   }
+
 
   render() {
     const {
-      todos, toggleTodos, popUp, classes,
+      todos,
+      toggleTodos,
+      preload,
+      classes,
     } = this.props;
-    console.log(todos);
 
     const list = todos.map(todo => (
       <Todo
@@ -34,13 +36,14 @@ class TodoList extends React.PureComponent {
         toggleTodos={toggleTodos}
       />
     ));
-    const circle = (popUp === undefined || popUp === 'Данных нету')
-      ? (
-        <Typography variant="subheading" gutterBottom color="primary">
-          {popUp}
-        </Typography>
-      ) : <CircularProgress />;
 
+    const circle = (preload === MESSAGE_LIST.LOADING)
+      ? <CircularProgress />
+      : (
+        <Typography variant="subheading" gutterBottom color="primary">
+          {preload}
+        </Typography>
+      );
 
     return (
       <Paper elevation={6}>
@@ -55,13 +58,12 @@ class TodoList extends React.PureComponent {
 
 TodoList.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({
-    // id: PropTypes.number.isRequired,
     completed: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired).isRequired,
   toggleTodos: PropTypes.func.isRequired,
   requestData: PropTypes.func.isRequired,
-  popUp: PropTypes.string.isRequired,
+  preload: PropTypes.string.isRequired,
   classes: PropTypes.shape({}).isRequired,
 };
 

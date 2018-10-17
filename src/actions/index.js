@@ -7,7 +7,8 @@ import {
   SET_VISIBILITY_FILTER,
   TOGGLE_TODO,
   REQUEST,
-  POPUP,
+  PRELOAD,
+  MESSAGE_LIST,
 } from './CONSTANTS';
 
 export const VisibilityFilters = {
@@ -21,9 +22,9 @@ export const FILTERS = [
   { label: 'Completed', value: VisibilityFilters.SHOW_COMPLETED },
 ];
 
-export const popUp = text => ({
+export const PreLoad = text => ({
   text,
-  type: POPUP,
+  type: PRELOAD,
 });
 
 export const addTodo = (text, id) => ({
@@ -49,17 +50,17 @@ export const pushData = data => ({
 
 export const requestData = () => (dispatch) => {
   database.child('todos').once('value', (snap) => {
-    if (!snap.val()) {
-      dispatch(popUp('Еще не создано ни одной записи'));
+    if (snap.exists()) {
+      dispatch(pushData(Object.values(snap.val())));
       return;
     }
-    dispatch(pushData(Object.values(snap.val())));
+    dispatch(PreLoad(MESSAGE_LIST.NO_DATA));
   });
 };
 
 export const addToDatabase = text => (dispatch) => {
+  const { key } = database.child('todos').push();
   try {
-    const { key } = database.child('todos').push();
     database.child(`todos/${key}`)
       .set({
         id: key,
@@ -68,10 +69,10 @@ export const addToDatabase = text => (dispatch) => {
       })
       .then(() => dispatch(addTodo(text, key)))
       .catch((e) => {
-        console.log(`Mistake: ${e.code}`);
+        database.child(`todos/falled/${key}`).set({ error: e.code });
       });
   } catch (e) {
-    console.log(e.message);
+    database.child(`todos/OtherError/${key}`).set({ error: e.code });
   }
 };
 
@@ -80,7 +81,12 @@ export const toggleTodos = (id, completed) => dispatch => () => {
     if (snap.val()[id].completed === true) {
       database.child(`todos/${id}`).remove();
       database.child('todos').once('value', (val) => {
-        dispatch(pushData(Object.values(val.val())));
+        if (val.val()) {
+          dispatch(pushData(Object.values(val.val())));
+          return;
+        }
+        dispatch(pushData([]));
+        dispatch(PreLoad(MESSAGE_LIST.TASK_COMPLETED));
       });
       return;
     }

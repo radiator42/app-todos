@@ -1,27 +1,50 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import FilterLink from '../containers/FilterLink';
-import { VisibilityFilters, FILTERS } from '../actions';
+import { FILTERS } from '../actions';
 
-function Footer() {
+const styles = {
+  show: {
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#4787ed',
+    borderStyle: 'solid',
+    padding: '8px 16px',
+    color: '#4787ed',
+    verticalAlign: 'middle',
+    textTransform: 'uppercase',
+    fontWeight: 600,
+
+  },
+  containers: {
+    marginTop: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+};
+
+function Footer({ classes }) {
   return (
-    <div style={{ marginTop: 20 }}>
-      <span>Show: </span>
-      {/* {FILTERS.map(item => (
-        <FilterLink filter={item.value}>
+    <div className={classes.containers}>
+      <span className={classes.show}>
+        Show:
+      </span>
+      {FILTERS.map(item => (
+        <FilterLink
+          key={item.label}
+          filter={item.value}
+        >
           {item.label}
         </FilterLink>
-      ))} */}
-      <FilterLink filter={VisibilityFilters.SHOW_ALL}>
-        All
-      </FilterLink>
-      <FilterLink filter={VisibilityFilters.SHOW_ACTIVE}>
-        Active
-      </FilterLink>
-      <FilterLink filter={VisibilityFilters.SHOW_COMPLETED}>
-        Completed
-      </FilterLink>
+      ))}
     </div>
   );
 }
 
-export default Footer;
+Footer.propTypes = {
+  classes: PropTypes.shape({}).isRequired,
+};
+
+
+export default withStyles(styles)(Footer);

@@ -6,4 +6,10 @@ export const ADD_TODO = 'ADD_TODO';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 export const TOGGLE_TODO = 'TOGGLE_TODO';
 export const REQUEST = 'REQUEST';
-export const POPUP = 'POPUP';
+export const PRELOAD = 'PRELOAD';
+
+export const MESSAGE_LIST = {
+  NO_DATA: 'No data',
+  TASK_COMPLETED: 'Tasks completed',
+  LOADING: 'LOADING',
+};
