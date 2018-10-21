@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
-// import { addTodo } from '../actions';
 
 const styles = theme => ({
   container: {
@@ -21,14 +20,13 @@ const styles = theme => ({
 });
 
 class AddTodo extends React.Component {
-  onClick = e => {
-    const { add } = this.props;
-
+  onClick() {
+    const { setNewTodo } = this.props;
     if (!this.input.value) {
       return;
     }
 
-    add(this.input.value);
+    setNewTodo(this.input.value);
     this.input.focus();
     this.input.value = '';
   }
@@ -49,7 +47,7 @@ class AddTodo extends React.Component {
           color="primary"
           aria-label="Add"
           className={classes.button}
-          onClick={this.onClick}
+          onClick={() => this.onClick()}
         >
           Add Todo
         </Button>
@@ -59,7 +57,7 @@ class AddTodo extends React.Component {
 }
 
 AddTodo.propTypes = {
-  add: PropTypes.func.isRequired,
+  setNewTodo: PropTypes.func.isRequired,
   classes: PropTypes.shape({}).isRequired,
 };
 

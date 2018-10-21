@@ -14,7 +14,7 @@ const styles = {
 };
 
 function Todo({
-  toggleTodos, completed, text, classes, id,
+  setToggleTodo, completed, text, classes, id,
 }) {
   return (
     <ListItem className={classes.itemList}>
@@ -23,7 +23,7 @@ function Todo({
         variant="raised"
         color="secondary"
         value={text}
-        onClick={toggleTodos(id, completed)}
+        onClick={setToggleTodo(id)}
         style={{ textDecoration: completed ? 'line-through' : 'none' }}
       >
         {text}
@@ -33,7 +33,7 @@ function Todo({
 }
 
 Todo.propTypes = {
-  toggleTodos: PropTypes.func.isRequired,
+  setToggleTodo: PropTypes.func.isRequired,
   completed: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,

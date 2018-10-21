@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { addToDatabase } from '../actions';
+import setNewTodo from '../actions/setNewTodo';
 import AddTodo from '../components/AddTodo';
 
 const mapDispatchToProps = dispatch => ({
-  add: text => dispatch(addToDatabase(text)),
+  setNewTodo: text => dispatch(setNewTodo(text)),
 });
 
 export default connect(
