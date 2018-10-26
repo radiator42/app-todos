@@ -9,7 +9,18 @@ const DB_CONFIG = {
   messagingSenderId: '602075448654',
 };
 
-firebase.initializeApp(DB_CONFIG);
-const database = firebase.database().ref();
+if (!firebase.apps.length) {
+  firebase.initializeApp(DB_CONFIG);
+}
 
-export default database;
+const database = firebase.database().ref();
+const dataStorage = firebase.storage().ref();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
+
+export {
+  database,
+  dataStorage,
+  auth,
+  provider,
+};

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
   container: {
@@ -12,6 +13,7 @@ const styles = theme => ({
   button: {
     flexGrow: 1,
     margin: theme.spacing.unit,
+    whiteSpace: 'nowrap',
   },
   input: {
     flexGrow: 2,
@@ -32,7 +34,7 @@ class AddTodo extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, logOut, history } = this.props;
     return (
       <div className={classes.container}>
         <Input
@@ -51,6 +53,17 @@ class AddTodo extends React.Component {
         >
           Add Todo
         </Button>
+        <div>
+          <Button
+            variant="contained"
+            color="secondary"
+            aria-label="Add"
+            className={classes.button}
+            onClick={() => logOut(history)}
+          >
+            logOut
+          </Button>
+        </div>
       </div>
     );
   }
@@ -58,7 +71,9 @@ class AddTodo extends React.Component {
 
 AddTodo.propTypes = {
   setNewTodo: PropTypes.func.isRequired,
+  logOut: PropTypes.func.isRequired,
   classes: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({}).isRequired,
 };
 
-export default withStyles(styles)(AddTodo);
+export default withRouter(withStyles(styles)(AddTodo));

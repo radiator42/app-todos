@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
-import App from './components/App';
+import ContainerApp from './containers/ContainerApp';
 import rootReducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -27,7 +27,7 @@ const theme = createMuiTheme({
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
-      <App />
+      <ContainerApp />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('root'),

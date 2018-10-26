@@ -18,15 +18,12 @@ const initialState = {
 const todos = (state = initialState, action) => {
   switch (action.type) {
     case SET_NEW_TODO:
-
       return {
         ...state,
         todoList: [
           ...state.todoList,
           {
-            id: action.id,
-            text: action.text,
-            completed: false,
+            ...action.payload,
           },
         ],
       };

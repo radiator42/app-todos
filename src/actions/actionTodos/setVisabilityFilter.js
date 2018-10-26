@@ -1,4 +1,4 @@
-import { SET_VISIBILITY_FILTER } from './CONSTANTS';
+import { SET_VISIBILITY_FILTER } from '../CONSTANTS';
 
 export default filter => ({
   filter,
