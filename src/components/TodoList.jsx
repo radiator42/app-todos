@@ -35,7 +35,6 @@ class TodoList extends React.Component {
       progress,
     } = this.props;
 
-
     const list = todos.map(todo => (
       <Todo
         key={todo.id}
