@@ -1,19 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import { Form, Field } from 'react-final-form';
+import inputField from './inputField';
 
 const styles = theme => ({
   container: {
     display: 'flex',
     paddingBottom: theme.spacing.unit * 2,
   },
+  form: {
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+
+  },
   button: {
     flexGrow: 1,
-    margin: theme.spacing.unit,
+    margin: [theme.spacing.unit, '0px'],
     whiteSpace: 'nowrap',
+  },
+  logout: {
+    position: 'absolute',
+    right: '1%',
+    top: '1%',
   },
   input: {
     flexGrow: 2,
@@ -22,48 +34,60 @@ const styles = theme => ({
 });
 
 class AddTodo extends React.Component {
-  onClick() {
+  // eslint-disable-next-line class-methods-use-this
+  onClick(value, formApi) {
     const { setNewTodo } = this.props;
-    if (!this.input.value) {
+
+    if (!value.addTodo) {
       return;
     }
 
-    setNewTodo(this.input.value);
-    this.input.focus();
-    this.input.value = '';
+    setNewTodo(value.addTodo);
+    formApi.change(value, '');
   }
 
   render() {
     const { classes, logOut, history } = this.props;
     return (
       <div className={classes.container}>
-        <Input
-          placeholder="Add Todo"
-          className={classes.input}
-          inputRef={(node) => {
-            this.input = node;
-          }}
+
+        <Form
+          onSubmit={(values, formApi) => this.onClick(values, formApi)}
+          render={({ handleSubmit }) => (
+            <form
+              onSubmit={handleSubmit}
+              className={classes.form}
+            >
+              <Field
+                name="addTodo"
+                component={inputField}
+                type="text"
+                className={classes.input}
+                variant="outlined"
+                label="Add Todo"
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                aria-label="Add"
+                className={classes.button}
+                type="submit"
+              >
+                Add Todo
+              </Button>
+            </form>
+
+          )}
         />
         <Button
           variant="contained"
-          color="primary"
+          color="secondary"
           aria-label="Add"
-          className={classes.button}
-          onClick={() => this.onClick()}
+          className={classes.logout}
+          onClick={() => logOut(history)}
         >
-          Add Todo
-        </Button>
-        <div>
-          <Button
-            variant="contained"
-            color="secondary"
-            aria-label="Add"
-            className={classes.button}
-            onClick={() => logOut(history)}
-          >
             logOut
-          </Button>
-        </div>
+        </Button>
       </div>
     );
   }

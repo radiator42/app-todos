@@ -3,7 +3,8 @@ import {
   CREATE_USER,
   WAITING_FETCH_USER,
   CREATE_USER_FAIL,
-} from '../actions/CONSTANTS';
+  CREATE_USER_NULL,
+} from '../CONSTANTS';
 
 const initialState = {
   user: null,
@@ -12,13 +13,22 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USER:
-      return action.payload;
+      return { user: action.payload };
+
     case CREATE_USER:
-      return action.payload;
+      return { user: action.payload };
+
     case WAITING_FETCH_USER:
       return state;
+
+    case CREATE_USER_NULL:
+      return { user: null };
+
     case CREATE_USER_FAIL:
-      return action.error;
+      return {
+        user: null,
+        error: action.error,
+      };
     default:
       return state;
   }

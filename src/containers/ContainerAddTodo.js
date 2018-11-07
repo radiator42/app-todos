@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import setNewTodo from '../actions/actionTodos/setNewTodo';
+import { newTodoSaga } from '../sagas/Todos/setNewTodo';
 import AddTodo from '../components/AddTodo';
-import { authFunctions } from '../config';
+import logOut from '../sagas/User/logOut';
 
 const mapDispatchToProps = dispatch => ({
-  setNewTodo: text => dispatch(setNewTodo(text)),
-  logOut: history => authFunctions.logOut(history),
+  setNewTodo: text => dispatch(newTodoSaga(text)),
+  logOut: history => logOut(history, dispatch),
 });
 
 export default connect(

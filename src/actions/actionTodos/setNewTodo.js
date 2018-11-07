@@ -2,7 +2,7 @@ import { firebase } from '../../config';
 import {
   SET_NEW_TODO,
   SET_NEW_TODO_FAIL,
-} from '../CONSTANTS';
+} from '../../CONSTANTS';
 
 const newTodo = payload => ({
   payload,

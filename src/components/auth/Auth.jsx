@@ -7,7 +7,7 @@ class Auth extends React.Component {
   componentDidUpdate(prevProps) {
     const { authUser, history } = this.props;
 
-    if (authUser !== prevProps.authUser) {
+    if (authUser.user !== prevProps.authUser.user) {
       history.push('/main');
     }
   }

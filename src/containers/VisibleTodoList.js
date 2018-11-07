@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
-import setToggleTodo from '../actions/actionTodos/setToogleTodo';
-import getTodoList from '../actions/actionTodos/getTodoList';
-import setImage from '../actions/actionImages/setImage';
-import { SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE } from '../actions/CONSTANTS';
+import { toggleTodoSaga } from '../sagas/Todos/setToogleTodo';
+import { setImageSaga } from '../sagas/Images/setImage';
+import {
+  SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE, GET_TODO_LIST_RESPONSE,
+} from '../CONSTANTS';
 import TodoList from '../components/TodoList';
 
 const getVisibleTodos = (todos, filter) => {
@@ -25,9 +26,9 @@ const mapStateToProps = state => ({
   progress: state.images.progress,
 });
 const mapDispatchToProps = dispatch => ({
-  setToggleTodo: id => dispatch(setToggleTodo(id)),
-  getTodoList: () => dispatch(getTodoList()),
-  setImage: image => dispatch(setImage(image)),
+  setToggleTodo: id => dispatch(toggleTodoSaga(id)),
+  getTodoList: () => dispatch({ type: GET_TODO_LIST_RESPONSE }),
+  setImage: image => dispatch(setImageSaga(image)),
 });
 
 export default connect(

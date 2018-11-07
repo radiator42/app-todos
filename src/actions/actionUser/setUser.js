@@ -1,4 +1,4 @@
-import { CREATE_USER, CREATE_USER_FAIL } from '../CONSTANTS';
+import { CREATE_USER, CREATE_USER_FAIL } from '../../CONSTANTS';
 import { firebase } from '../../config';
 
 const setUser = payload => ({

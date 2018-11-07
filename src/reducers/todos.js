@@ -7,7 +7,7 @@ import {
   TOGGLE_TODO,
   TOGGLE_TODO_REMOVE_COMPLETED,
   TOGGLE_TODO_FAIL,
-} from '../actions/CONSTANTS';
+} from '../CONSTANTS';
 
 const initialState = {
   todoList: [],
@@ -75,7 +75,7 @@ const todos = (state = initialState, action) => {
 
     case GET_TODO_LIST_RESPONSE: {
       return Object.assign({}, state, {
-        todoList: action.data,
+        todoList: action.data || [],
         isLoading: false,
         error: '',
       });

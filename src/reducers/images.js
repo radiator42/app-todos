@@ -5,7 +5,7 @@ import {
   IMAGE_REQUEST_PROGRESS,
   IMAGE_DELETE,
   IMAGE_DELETE_ERROR,
-} from '../actions/CONSTANTS';
+} from '../CONSTANTS';
 
 
 const initialState = {
@@ -31,7 +31,7 @@ const images = (state = initialState, action) => {
     case IMAGE_REQUEST:
       return {
         ...state,
-        imagesList: action.payload,
+        imagesList: action.payload || [],
       };
 
     case IMAGE_REQUEST_PROGRESS:

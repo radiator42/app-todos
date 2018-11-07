@@ -30,7 +30,7 @@ class Todo extends React.Component {
           variant="raised"
           color="secondary"
           value={text}
-          onClick={setToggleTodo(id)}
+          onClick={() => setToggleTodo(id)}
           style={{ textDecoration: completed ? 'line-through' : 'none' }}
         >
           {text}

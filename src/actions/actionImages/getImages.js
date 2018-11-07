@@ -2,7 +2,7 @@ import { firebase } from '../../config';
 import {
   IMAGE_REQUEST,
   IMAGE_REQUEST_FAIL,
-} from '../CONSTANTS';
+} from '../../CONSTANTS';
 
 
 const getImageRequest = payload => ({

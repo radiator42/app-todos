@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import getUser from '../actions/actionUser/getUser';
+import { GET_REQUEST_USER } from '../CONSTANTS';
 import App from '../components/App';
 
 const mapStateToDispatch = dispatch => ({
-  getUser: () => dispatch(getUser()),
+  getUser: () => dispatch({ type: GET_REQUEST_USER }),
 });
 
 export default connect(null, mapStateToDispatch)(App);

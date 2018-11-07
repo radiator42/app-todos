@@ -2,7 +2,7 @@ import { firebase } from '../../config';
 import {
   IMAGE_DELETE,
   IMAGE_DELETE_ERROR,
-} from '../CONSTANTS';
+} from '../../CONSTANTS';
 
 const deleteImage = id => ({
   id,

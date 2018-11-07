@@ -3,7 +3,7 @@ import {
   GET_TODO_LIST_REQUEST,
   GET_TODO_LIST_RESPONSE,
   GET_TODO_LIST_FAIL_RESPONSE,
-} from '../CONSTANTS';
+} from '../../CONSTANTS';
 
 const getTodoListRequest = () => ({
   type: GET_TODO_LIST_REQUEST,

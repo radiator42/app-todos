@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Images from '../components/images/Images';
-import getImages from '../actions/actionImages/getImages';
-import deleteImages from '../actions/actionImages/deleteImages';
+import { IMAGE_REQUEST } from '../CONSTANTS';
+import { deleteImageSaga } from '../sagas/Images/deleteImages';
 
 const mapStateToProps = state => ({
   images: state.images.imagesList,
@@ -9,8 +9,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getImages: () => dispatch(getImages()),
-  deleteImages: (id, title) => dispatch(deleteImages(id, title)),
+  getImages: () => dispatch({ type: IMAGE_REQUEST }),
+  deleteImages: (id, title) => dispatch(deleteImageSaga(id, title)),
 });
 
 export default connect(

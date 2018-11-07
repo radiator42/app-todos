@@ -3,7 +3,7 @@ import {
   TOGGLE_TODO,
   TOGGLE_TODO_REMOVE_COMPLETED,
   TOGGLE_TODO_FAIL,
-} from '../CONSTANTS';
+} from '../../CONSTANTS';
 
 
 const toggleTodo = id => ({

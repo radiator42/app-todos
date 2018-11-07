@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import FilterLink from '../containers/FilterLink';
-import { FILTERS } from '../actions/CONSTANTS';
+import { FILTERS } from '../CONSTANTS';
 
 const styles = {
   show: {

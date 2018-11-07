@@ -3,7 +3,7 @@ import {
   IMAGE_SET,
   IMAGE_REQUEST_PROGRESS,
   IMAGE_REQUEST_FAIL,
-} from '../CONSTANTS';
+} from '../../CONSTANTS';
 import { firebase as server } from '../../config';
 
 const setImage = payload => ({
@@ -21,7 +21,7 @@ const responceImageFail = error => ({
   type: IMAGE_REQUEST_FAIL,
 });
 
-export default file => (dispatch) => {
+ file => (dispatch) => {
   try {
     const image = file.files[0];
     const { uid } = server.auth.currentUser;

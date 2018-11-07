@@ -1,5 +1,3 @@
-import { fork } from "cluster";
-
 export const SHOW_ALL = '@/SHOW_ALL';
 export const SHOW_COMPLETED = '@/SHOW_COMPLETED';
 export const SHOW_ACTIVE = '@/SHOW_ACTIVE';
@@ -32,5 +30,14 @@ export const IMAGE_REQUEST_FAIL = '@/IMAGE_REQUEST_FAIL';
 
 export const FETCH_USER = '@/FETCH_USER';
 export const CREATE_USER = '@/CREATE_USER';
+export const CREATE_USER_NULL = '@/CREATE_USER_NULL';
 export const CREATE_USER_FAIL = '@/CREATE_USER_FAIL';
 export const WAITING_FETCH_USER = '@/WAITING_FETCH_USER';
+
+// sagas
+export const GET_REQUEST_USER = '@/GET_REQUEST_USER';
+export const SET_NEW_USER = '@/SET_NEW_USER';
+export const SET_NEW_TODO_SAGA = '@/SET_NEW_TODO_SAGA';
+export const TOGGLE_TODO_SAGA = '@/TOGGLE_TODO_SAGA';
+export const IMAGE_SET_SAGA = '@/IMAGE_SET_SAGA';
+export const IMAGE_DELETE_SAGA = '@/IMAGE_DELETE_SAGA';
