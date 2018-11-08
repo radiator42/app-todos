@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
-import inputField from './inputField';
+import inputField from './InputField';
 
 const styles = theme => ({
   container: {
@@ -34,7 +34,6 @@ const styles = theme => ({
 });
 
 class AddTodo extends React.Component {
-  // eslint-disable-next-line class-methods-use-this
   onClick(value, formApi) {
     const { setNewTodo } = this.props;
 
