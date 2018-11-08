@@ -2,10 +2,19 @@
 
 # dependencies
 /node_modules
-/.vscode
-/.firebase
-#.firebasers
-#/src/config
+/\.vscode
+/\.firebase
+/\.firebasers
+/src/config
+/config
+/scripts
+/database.rules.json
+/\.firebaserc
+/\eslintrc.json
+/database.rules.json
+/firebase.json
+/n
+
 
 
 # testing
