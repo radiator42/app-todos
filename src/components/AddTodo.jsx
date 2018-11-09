@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
-import inputField from './InputField';
+import InputField from './InputField';
 
 const styles = theme => ({
   container: {
@@ -59,7 +59,7 @@ class AddTodo extends React.Component {
             >
               <Field
                 name="addTodo"
-                component={inputField}
+                component={InputField}
                 type="text"
                 className={classes.input}
                 variant="outlined"
